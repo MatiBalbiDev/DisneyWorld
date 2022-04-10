@@ -21,4 +21,6 @@ public interface PersonajeRepository extends CrudRepository<Personaje, Integer> 
 	@Query(value = "SELECT imagen,nombre FROM personaje;", nativeQuery = true)
 	List<Personaje> getAllPersonajes();
 
+	boolean existsByNombre(String nombre);
+
 }

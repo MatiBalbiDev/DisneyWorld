@@ -22,4 +22,6 @@ public interface PeliculaRepository extends CrudRepository<Pelicula,Integer> {
 	
 	@Query(value = "SELECT imagen,titulo,fecha_creacion FROM pelicula;", nativeQuery = true)
 	List<Pelicula> getAllPeliculas();
+
+	boolean existsByTitulo(String nombre);
 }
