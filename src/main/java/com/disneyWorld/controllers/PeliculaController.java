@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import com.disneyWorld.models.Pelicula;
 import com.disneyWorld.repositories.GeneroRepository;
 import com.disneyWorld.repositories.PeliculaRepository;
+import com.disneyWorld.repositories.PersonajeRepository;
+import com.disneyWorld.services.GeneroService;
+import com.disneyWorld.services.PeliculaService;
+import com.disneyWorld.services.PersonajeService;
 
 @RestController
 @RequestMapping("/movies")
@@ -21,6 +25,9 @@ public class PeliculaController {
 	
 	@Autowired
 	PersonajeRepository personajeRepository;
+	
+	@Autowired
+	PersonajeService personajeService;
 	
 	@Autowired
 	GeneroRepository generoRepository;
@@ -81,8 +88,8 @@ public class PeliculaController {
 	
 	@PostMapping("{id}/characters/{idCharacter}")
 	public ResponseEntity<?> agregarPersonaje(@PathVariable Integer idCharacter){
-		if(!personajeRepository.existsById(idCharacter)) {
-			return new ResponseEntity<>("El personaje no existe", HttpStatus.NOT_FOUND);
+		if(personajeRepository.existsById(idCharacter)) {
+			return new ResponseEntity<>("El personaje ya existe", HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(personajeService.guardarPersonaje(idCharacter), HttpStatus.OK);
 	}
