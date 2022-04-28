@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.disneyWorld.models.Pelicula;
 import com.disneyWorld.models.Personaje;
 import com.disneyWorld.repositories.PersonajeRepository;
+import com.disneyWorld.services.PeliculaService;
+import com.disneyWorld.services.PersonajeService;
 
 @RestController
 @RequestMapping("/characters")
@@ -54,16 +56,16 @@ public class PersonajeController {
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Integer> editarPersonaje(@PathVariable Integer id){
+	public ResponseEntity<?> editarPersonaje(@PathVariable Integer id, @RequestBody Personaje personaje){
 		if(!personajeRepository.existsById(id)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<>(personajeService.updatePersonaje(id), HttpStatus.OK);
+		return new ResponseEntity<Personaje>(personajeService.updatePersonaje(id, personaje), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Integer> eliminarPersonaje(@PathVariable Integer id){
+	public ResponseEntity<?> eliminarPersonaje(@PathVariable Integer id){
 		if(!personajeRepository.existsById(id)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
