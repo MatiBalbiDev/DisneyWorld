@@ -2,15 +2,14 @@ package com.disneyWorld.repositories;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
 import com.disneyWorld.models.Pelicula;
 import com.disneyWorld.models.Personaje;
 
 @Repository
-public interface PersonajeRepository extends CrudRepository<Personaje, Integer> {
+public interface PersonajeRepository extends JpaRepository<Personaje, Integer> {
 
 	List<Personaje> findByNombre(String nombre);
 
@@ -22,5 +21,7 @@ public interface PersonajeRepository extends CrudRepository<Personaje, Integer> 
 	List<Personaje> getAllPersonajes();
 
 	boolean existsByNombre(String nombre);
+	
+	Personaje getById(Integer id);
 
 }
